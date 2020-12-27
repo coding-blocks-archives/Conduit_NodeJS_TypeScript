@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
 
-@Entity()
+@Entity('users')
 export class User {
 
   @PrimaryColumn()
@@ -18,6 +18,8 @@ export class User {
 
   @Column({ nullable: true })
   image?: string
+
+  token?: string
 
 
   constructor(email: string, username: string, password: string) {

@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
 
-@Entity()
+@Entity('articles')
 export class Article {
 
   @PrimaryColumn({ length: 30 })
