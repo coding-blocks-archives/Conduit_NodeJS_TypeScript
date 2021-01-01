@@ -67,3 +67,16 @@ export async function loginUser(data: UserLoginData): Promise<User> {
   return sanitizeFields(user)
 
 }
+
+export async function getUserByEmail(email: string): Promise<User> {
+
+  const repo = getRepository(User)
+
+  const user  = await repo.findOne(email)
+
+  if (!user) throw new Error('No user with this email id')
+
+  return sanitizeFields(user)
+
+
+}
