@@ -20,7 +20,7 @@ route.get('/', authByToken, async (req, res) => {
 })
 
 // PATCH /user      update data of current user
-route.patch('/', async (req, res) => {
+route.patch('/', authByToken, async (req, res) => {
 
 })
 

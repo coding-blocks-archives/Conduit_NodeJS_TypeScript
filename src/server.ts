@@ -4,6 +4,7 @@ import { Article } from "./entities/Article";
 import { User } from "./entities/User";
 import { usersRoute } from "./routes/users";
 import { userRoute } from "./routes/user";
+import { articlesRoute } from "./routes/articles";
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/users', usersRoute)
 app.use('/api/user', userRoute)
+app.use('/api/articles', articlesRoute)
 
 async function start() {
   await createConnection({
@@ -24,7 +26,7 @@ async function start() {
     database: 'conduit',
     entities: [ Article, User ],
     synchronize: true,
-    dropSchema: true, // TODO: not for production
+    // dropSchema: true, // TODO: not for production
     logging: true,
     logger: "advanced-console"
   })

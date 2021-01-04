@@ -15,6 +15,13 @@ interface UserLoginData {
   password: string
 }
 
+interface UserUpdateData {
+  username?: string
+  password?: string
+  bio?: string
+  image?: string
+}
+
 export async function createUser(data: UserSignupData): Promise<User> {
 
   // Check for data validity
@@ -78,5 +85,25 @@ export async function getUserByEmail(email: string): Promise<User> {
 
   return sanitizeFields(user)
 
+
+}
+
+export async function updateUserDetails(data: UserUpdateData, email: string): Promise<User> {
+
+  const repo = getRepository(User)
+
+  const user  = await repo.findOne(email)
+
+  if (!user) throw new Error('No user with this email id')
+
+
+  if (data.bio) user.bio = data.bio
+  if (data.username) user.username = data.username
+  if (data.image) user.image = data.image
+  if (data.password) user.password = await hashPassword(data.password)
+
+  const updatedUser = await repo.save(user)
+
+  return sanitizeFields(updatedUser)
 
 }
