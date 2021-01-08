@@ -58,6 +58,12 @@ export async function deleteArticle(slug: string): Promise<boolean> {
 //   return [new Article()] // TODO
 // }
 //
-// export async function getArticleBySlug(slug: string): Promise<Article> {
-//   return new Article() // TODO
-// }
+export async function getArticleBySlug(slug: string): Promise<Article> {
+  const repo = getRepository(Article)
+  const article = await repo.findOne(slug, {relations: ['author']})
+
+  if(!article) throw new Error('Article not found')
+
+  article.author = sanitizeFields(article.author)
+  return article
+}
